@@ -10,10 +10,19 @@ def analyzer(URL,H):
 
     count_guion = URL.count("-")
     count_characters = len(tldextract.extract(URL).domain)
+    ext = tldextract.extract(URL).subdomain
 
     shorteners = r"bit\.ly|tinyurl\.com|goo\.su|t\.co"
     pattern = f"https?://({shorteners})/[a-zA-Z0-9]+"
     patternIp4 = r'\b(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\b'
+
+    if ext:
+        listsub = lista_subdominios = ext.split('.')
+        count_subdomain = len(lista_subdominios)
+        if count_subdomain >= 4:
+            total_score += 5
+            sign += 1 
+            print(f"[!] too much subdomains: {count_subdomain}")
 
     if count_characters >= 25:
         total_score += 5
@@ -42,8 +51,16 @@ def analyzer(URL,H):
     
     if H:
         response = requests.get(URL)
-        print(response.text)
-        print(f"[*] status code: {response.status_code}") 
-        
+
+        if response.history:
+            total_score += 5
+            print("[!] there was a redirection")
+            for redirect in response.history:
+                print(redirect.status_code, redirect.url)
+
+            print("End:", response.status_code, response.url)
+        else:
+            print(response.status_code)
+            print(response.text)
 
     score(sign,total_score)
