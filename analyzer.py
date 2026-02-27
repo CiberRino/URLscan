@@ -57,7 +57,7 @@ def analyzer(URL,H,ss):
             certificate(domain)
 
         if H:
-            HTLM(URL)
+            HTLM(URL,total_score)
             
         score(sign,total_score)
 

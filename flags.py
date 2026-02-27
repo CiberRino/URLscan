@@ -15,12 +15,12 @@ def certificate(do):
     except ssl.SSLCertVerificationError as s:
        print(s)   
 
-def HTLM(url):
+def HTLM(url,score):
     try:
         response = requests.get(url)
 
         if response.history:
-            total_score += 5
+            score += 5
             print("[!] there was a redirection")
             for redirect in response.history:
                 print(redirect.status_code, redirect.url)
