@@ -1,10 +1,10 @@
 import re
-import requests
 import tldextract
+from flags import HTLM
+from flags import certificate
 from scoring import score
 
-
-def analyzer(URL,H):
+def analyzer(URL,H,ss):
 
     sign = 0
     total_score = 0
@@ -53,24 +53,13 @@ def analyzer(URL,H):
             sign += 1
             print("[!] http in the url")
 
+        if ss:
+            certificate(domain)
+
         if H:
-            try:
-                response = requests.get(URL)
-
-                if response.history:
-                    total_score += 5
-                    print("[!] there was a redirection")
-                    for redirect in response.history:
-                        print(redirect.status_code, redirect.url)
-
-                    print("End:", response.status_code, response.url)
-                else:
-                    print(response.status_code)
-                    print(response.text)
-            except requests.exceptions.RequestException as s:
-                print(f"error: {s}")
-
+            HTLM(URL)
+            
         score(sign,total_score)
 
-    except requests.exceptions.RequestException as r:
+    except Exception as r:
         print(r)
