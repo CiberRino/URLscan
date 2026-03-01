@@ -31,12 +31,12 @@ def analyzer(URL,H,ss):
         if count_characters >= 25:
             total_score += 5
             sign += 1
-            print(f"[!] too much characters: {count_characters}") 
+            print(f"[!] domain very long: {count_characters} domain: {domain}") 
 
         if count_guion >= 4:
                 total_score += 5
                 sign += 1
-                print(f"[!] too much - : {count_guion}")  
+                print(f"[!] too much - {count_guion}")  
 
         if re.search(patternIp4, URL):
             total_score += 15
@@ -54,7 +54,7 @@ def analyzer(URL,H,ss):
             print("[!] http in the url")
 
         if ss:
-            certificate(domain)
+            certificate(URL)
 
         if H:
             HTLM(URL,total_score)
@@ -63,3 +63,5 @@ def analyzer(URL,H,ss):
 
     except Exception as r:
         print(r)
+
+       

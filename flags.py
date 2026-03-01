@@ -1,19 +1,12 @@
-import ssl
-import socket
 import requests
 
-def certificate(do):
+def certificate(url):
     try:
-        hostname = do
-        port = 443
-
-        context = ssl.create_default_context()
-
-        with socket.create_connection((hostname, port)) as sock:
-            with context.wrap_socket(sock, server_hostname=hostname) as ssock:
-                pass
-    except ssl.SSLCertVerificationError as s:
-       print(s)   
+        response = requests.get(url)
+    except requests.exceptions.SSLError as s:
+        print(F"bad ssl: {s}")
+    except requests.exceptions.ConnectionError as c:
+        print(f"connection error: {c}")
 
 def HTLM(url,score):
     try:
@@ -31,3 +24,7 @@ def HTLM(url,score):
                 print(response.text)
     except requests.exceptions.RequestException as s:
         print(f"error: {s}")
+    
+
+
+
