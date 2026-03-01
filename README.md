@@ -5,13 +5,20 @@ It was created for learning and experimentation purposes only.
 
 # How to use
 
+# that can detect:
+- too much - or subdomains
+- IPv4 in the domain
+- very long domain
+- use http
+- Whether or not it uses http.
+- shortener in the url
 
 # What it doesn't detect.
 This project does not detect:
 - domain age
 - domain reputation
 - suspicious words
-- typosquaring or similar techniques 
+- typosquatting or similar techniques 
 
 # License
 This project is licensed under the MIT License.
