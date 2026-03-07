@@ -15,7 +15,7 @@ example:
 
 # How to use 
 ```bash
-python3 urlscan.py https://your-url-suspicious.com [flags]
+python3 urlscan.py https://your-url-suspicious.com [optional flags]
 ```
 
 # Flags and system score
